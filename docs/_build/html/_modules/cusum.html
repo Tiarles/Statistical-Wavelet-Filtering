@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cusum &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../statsWaveletFiltr.html">statsWaveletFiltr package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>cusum</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cusum</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">**Wavelet Based in CUSUM control chart for filtering signals Project (module**</span>
+<span class="sd">``statsWaveletFiltr.cusum`` **):** Functions to analise data using Control</span>
+<span class="sd">Chart CUSUM. In this package the application of this chart is for filtration of</span>
+<span class="sd">wavelet coefficients.</span>
+
+<span class="sd">*Created by Tiarles Guterres, 2018*</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="analysisCusum"><a class="viewcode-back" href="../statsWaveletFiltr.html#cusum.analysisCusum">[docs]</a><span class="k">def</span> <span class="nf">analysisCusum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">SjBi_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="n">Sjsi_start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculates the Control Limits of CUSUM like in [1]. This is a Control Chart</span>
+<span class="sd">    defined in [2] and this type of tool serves to make a control of data who</span>
+<span class="sd">    is  called in statistic &quot;process&quot;.</span>
+
+<span class="sd">    For more details about the parameters see [1] Chapter 9: Cumulative Sum and</span>
+<span class="sd">    Exponentially Weighted Moving Average Control Charts.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: list or array-like</span>
+<span class="sd">        This is the data of &quot;process&quot; who CUSUM has to analize</span>
+<span class="sd">    k: int or float</span>
+<span class="sd">        Optional, 1/2 (or .5) by default. It&#39;s a parameter of the CUSUM</span>
+<span class="sd">        algorithm. Helps to the Control Chart acummulate the Control Limits of</span>
+<span class="sd">        each element of data.</span>
+<span class="sd">    mean: int or float</span>
+<span class="sd">        Optional, is None by default, but turns the mean of data. Also an</span>
+<span class="sd">        intern parameter of the algorithm for help to acumulate the control</span>
+<span class="sd">        limits.</span>
+<span class="sd">    std: int or float</span>
+<span class="sd">        Optional, is None by default, but turns the standard deviation of data.</span>
+<span class="sd">        The same function of mean in relation of control limits.</span>
+
+<span class="sd">    SjBi_start: int or float</span>
+<span class="sd">        Optional, is 0 by default. Is the start value for acumulation of</span>
+<span class="sd">        superior control limit.</span>
+
+<span class="sd">    Sjsi_start: int or float</span>
+<span class="sd">        Optional, is 0 by default. Is the start value for acumulation of</span>
+<span class="sd">        inferior control limit.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        A tuple of control limits. In [0] the superior limits and in [2] the</span>
+<span class="sd">        inferior limits.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    thresholdCusum: Function used to truncation of data using the control</span>
+<span class="sd">        limits obtained in this function and a decision interval, called &quot;H&quot;.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth</span>
+<span class="sd">           edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</span>
+
+<span class="sd">    .. [2] PAGE, E. S. Continous Inspection Schemes. Biometrika, v. 41,</span>
+<span class="sd">           p. 100-115, 1954</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">if</span> <span class="n">std</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mean</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">std</span>
+
+    <span class="n">SjB</span><span class="p">,</span> <span class="n">Sjs</span> <span class="o">=</span> <span class="p">[</span><span class="n">SjBi_start</span><span class="p">],</span> <span class="p">[</span><span class="n">Sjsi_start</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+
+        <span class="n">SjBi_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xi</span> <span class="o">-</span> <span class="p">(</span><span class="n">mean</span> <span class="o">+</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="n">SjB</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">Sjsi_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">mean</span> <span class="o">-</span> <span class="n">K</span><span class="p">)</span> <span class="o">-</span> <span class="n">xi</span> <span class="o">+</span> <span class="n">Sjs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">SjB</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SjBi_temp</span><span class="p">)</span>
+        <span class="n">Sjs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sjsi_temp</span><span class="p">)</span>
+
+    <span class="n">SjB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">SjB</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">Sjs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Sjs</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">SjB</span><span class="p">,</span> <span class="n">Sjs</span></div>
+
+
+<div class="viewcode-block" id="thresholdCusum"><a class="viewcode-back" href="../statsWaveletFiltr.html#cusum.thresholdCusum">[docs]</a><span class="k">def</span> <span class="nf">thresholdCusum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">SjB</span><span class="p">,</span> <span class="n">Sjs</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Makes the truncation of data accordyling with control limits SjB and Sjs</span>
+<span class="sd">    and the interval of decision [H = h * data.std()]. The threshold method</span>
+<span class="sd">    it&#39;s showed in [1], more about cusum it&#39;s showed in [2], Chapter 9.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The size of **data** must be **equal** to size of **SjB** and **Sjs**.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        After the test (via **pytest**) the fuction was changed for better</span>
+<span class="sd">        performance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data: list or array-like</span>
+<span class="sd">        The data who corresponding to control limits.</span>
+<span class="sd">    SjB: list or array-like</span>
+<span class="sd">        The control superior limits who corresponding to data .</span>
+<span class="sd">    Sjs: list or array-like</span>
+<span class="sd">        The control inferior limits who corresponding to data .</span>
+<span class="sd">    std: int or float</span>
+<span class="sd">        Optional, is None by default, but turns the standard deviation of data.</span>
+<span class="sd">        It&#39;s an intern parameter of the algorithm for help to acumulate the</span>
+<span class="sd">        control limits.</span>
+<span class="sd">    h: int or float</span>
+<span class="sd">        Optional, 5 by default. This variable multiply with standard deviation</span>
+<span class="sd">        of data to obtain the interval of decision (H).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.array:</span>
+<span class="sd">        An array with elements of data truncated or not, depending of the</span>
+<span class="sd">        control limits and the interval of decision.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    analysisCusum: Make the cusum analysis inthe data, return the control</span>
+<span class="sd">        limits corresponding to data input.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] GUTERRES, T. D. R. M.; BAYER, F. M; KOZAKEVICIUS, A. D. J. (2018)</span>
+<span class="sd">           Análise do gráfico de controle CUSUM para filtragem de coeficientes</span>
+<span class="sd">           wavelet, Undergraduation Thesis, Universidade Federal de Santa</span>
+<span class="sd">           Maria. In portuguese.</span>
+
+<span class="sd">    .. [2] MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth</span>
+<span class="sd">           edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">if</span> <span class="n">std</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+    <span class="n">data2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">H</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">std</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Dji</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">SjB</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">H</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Sjs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">H</span><span class="p">):</span>
+            <span class="n">data2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Dji</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># (SjBi =&lt; H) and (Sjsi =&lt; H)</span>
+            <span class="n">data2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

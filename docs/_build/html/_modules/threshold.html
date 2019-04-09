@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>threshold &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../statsWaveletFiltr.html">statsWaveletFiltr package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>threshold</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for threshold</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">**Wavelet Based in CUSUM control chart for filtering signals Project (module**</span>
+<span class="sd">``statsWaveletFiltr.threshold`` **):** Statistic functions for obtain threshold</span>
+<span class="sd">values for wavelet coefficients based in some referenced works.</span>
+
+<span class="sd">*Created by Tiarles Guterres, 2018*</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="lambdasVisuShrink"><a class="viewcode-back" href="../statsWaveletFiltr.html#threshold.lambdasVisuShrink">[docs]</a><span class="k">def</span> <span class="nf">lambdasVisuShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Computes the threshold value (lambda) by VisuShrink [1] method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    wavCoeff: list of lists or array-like</span>
+<span class="sd">        Wavelet coefficients</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of float:</span>
+<span class="sd">        The threshold values for each wavelet coefficients</span>
+<span class="sd">        vector.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function for filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    pywt.wavedec: Function that decomposes the signal in wavelet and</span>
+<span class="sd">        scale coefficients</span>
+<span class="sd">    pywt.waverec: Function that recomposes the signal from wavelet and</span>
+<span class="sd">        scale coefficients</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] DONOHO, D. L.; JOHNSTONE, I. M. Ideal spatial adaptation via</span>
+<span class="sd">           wavelet shrinkage. Biometrika, v. 81, p. 425–455, 1994.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="c1"># Coefficients Vector from the bigger resolution</span>
+    <span class="n">d_m1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Make a copy</span>
+    <span class="n">d_m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d_m1</span><span class="p">)</span>       <span class="c1"># Turns a numpy.array</span>
+
+    <span class="n">estDeviation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_m1</span><span class="p">))</span><span class="o">/.</span><span class="mi">6745</span>
+
+    <span class="n">lambdaValues</span> <span class="o">=</span> <span class="p">[</span><span class="n">estDeviation</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">d_m1</span><span class="o">.</span><span class="n">size</span><span class="p">))]</span> <span class="o">*</span> \
+        <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambdaValues</span></div>
+
+
+<span class="k">def</span> <span class="nf">_sure</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">ti</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Internal function, for lambdasSureShrink method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        After the test (via **pytest**) the fuction was changed for better</span>
+<span class="sd">        performance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    vector: list or array-like</span>
+<span class="sd">        vector of coefficients who lambdasSureShrink function needs for the</span>
+<span class="sd">        computes.</span>
+
+<span class="sd">    t: list or array-like</span>
+<span class="sd">        Intern parameter set by lambdasSureShrink method.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of float:</span>
+<span class="sd">        Based on work of Stein [1].</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function to filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    lambdasSureShrink: Function that use this function for sureshrink</span>
+<span class="sd">        algorithm</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] STEIN, C. Estimation of the mean of a multivariate normal</span>
+<span class="sd">           distribution. Annals of Statistics, v. 9, p. 1135–1151, 1981.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">vector2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">vector</span><span class="p">))</span>
+
+    <span class="n">soma1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vector2</span> <span class="o">&lt;=</span> <span class="n">ti</span><span class="p">)</span>
+
+    <span class="n">ti_list</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ti</span><span class="p">]]</span><span class="o">*</span><span class="n">vector2</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="n">soma2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">vector2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ti_list</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">vector2</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">soma1</span> <span class="o">+</span> <span class="n">soma2</span>
+
+
+<div class="viewcode-block" id="lambdasSureShrink"><a class="viewcode-back" href="../statsWaveletFiltr.html#threshold.lambdasSureShrink">[docs]</a><span class="k">def</span> <span class="nf">lambdasSureShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">,</span> <span class="n">dim_t</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Computes the threshold value (lambda) by SureShrink [1] method. It&#39;s showed</span>
+<span class="sd">    also in [2].</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        After the test (via **pytest**) the fuction was changed for better</span>
+<span class="sd">        performance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    wavCoeff: list of lists or array-like</span>
+<span class="sd">        Wavelet coefficients</span>
+<span class="sd">    dim_t: optional, 1024 by default. t-dimension. Input vector from</span>
+<span class="sd">        internal function _sure(vector, dim_t).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of float:</span>
+<span class="sd">        The threshold values for each wavelet coefficients vector.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function to filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    pywt.wavedec: Function that decomposes the signal in wavelet and</span>
+<span class="sd">        scale coefficients</span>
+<span class="sd">    pywt.waverec: Function that recomposes the signal from wavelet and</span>
+<span class="sd">        scale coefficients</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] DONOHO, D. L.; JOHNSTONE, I. M. Ideal spatial adaptation via</span>
+<span class="sd">           wavelet shrinkage. Biometrika, v. 81, p. 425–455, 1994.</span>
+
+<span class="sd">    .. [2] KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via</span>
+<span class="sd">           limiarização de coeficientes wavelet. Ciência e Natura, v. 36,</span>
+<span class="sd">           p. 37–51, 2014. In portuguese.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">wavCoeff2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff</span><span class="p">]</span>
+
+    <span class="n">lambdaValues</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">wavCoeff2</span><span class="p">:</span>
+
+        <span class="n">estDeviation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">))</span><span class="o">/.</span><span class="mi">6745</span>
+
+        <span class="n">tmax</span> <span class="o">=</span> <span class="n">estDeviation</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">coeff</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">dim_t</span><span class="p">)</span>
+
+        <span class="n">res_sure</span> <span class="o">=</span> <span class="p">[</span><span class="n">_sure</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">ti</span><span class="p">)</span> <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">t</span><span class="p">]</span>
+
+        <span class="n">lambdaValues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">res_sure</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">lambdaValues</span></div>
+
+
+<div class="viewcode-block" id="lambdasBayesShrink"><a class="viewcode-back" href="../statsWaveletFiltr.html#threshold.lambdasBayesShrink">[docs]</a><span class="k">def</span> <span class="nf">lambdasBayesShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Computes the threshold value (lambda) by BayesShrink [1] method. It&#39;s</span>
+<span class="sd">    showed also in [2].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    wavCoeff: list of lists or array-like</span>
+<span class="sd">        Wavelet coefficients</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of float:</span>
+<span class="sd">        The threshold values for each wavelet coefficients vector.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function to filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    pywt.wavedec: Function that decomposes the signal in wavelet and</span>
+<span class="sd">        scale coefficients</span>
+<span class="sd">    pywt.waverec: Function that recomposes the signal from wavelet and</span>
+<span class="sd">        scale coefficients</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] CHANG, S. G.; YU, B.; VETTERLI, M. Adaptive wavelet thresholding</span>
+<span class="sd">           for image denoising and compression. IEEE Transactions on Image</span>
+<span class="sd">           Processing, v. 9, p. 1532–1546, 2000.</span>
+
+<span class="sd">    .. [2] KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via</span>
+<span class="sd">           limiarização de coeficientes wavelet. Ciência e Natura, v. 36,</span>
+<span class="sd">           p. 37–51, 2014. In portuguese.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">wavCoeff2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff</span><span class="p">]</span>
+
+    <span class="n">d_m1</span> <span class="o">=</span> <span class="n">wavCoeff2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">deviation_square</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_m1</span><span class="p">))</span><span class="o">/</span><span class="mf">0.6745</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">lambdaValues</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff2</span><span class="p">:</span>
+        <span class="n">deviation2_wavCoeff_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="n">wavCoeff_i</span><span class="o">.</span><span class="n">size</span>
+
+        <span class="n">deviation_Xj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">deviation2_wavCoeff_i</span> <span class="o">-</span> <span class="n">deviation_square</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">lambdaValues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deviation_square</span><span class="o">/</span><span class="n">deviation_Xj</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambdaValues</span></div>
+
+
+<div class="viewcode-block" id="lambdasSPC_Threshold"><a class="viewcode-back" href="../statsWaveletFiltr.html#threshold.lambdasSPC_Threshold">[docs]</a><span class="k">def</span> <span class="nf">lambdasSPC_Threshold</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Computes the threshold value (lambda) by SPC-Threshold [1], [2] method</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        After the test (via **pytest**) the fuction was changed for better</span>
+<span class="sd">        performance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    wavCoeff: list of lists or array-like</span>
+<span class="sd">        Wavelet coefficients</span>
+<span class="sd">    p: int or float</span>
+<span class="sd">        Optional, 3 by default. Parameter for the algorithm [1],</span>
+<span class="sd">        generally is used 2 or 3.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of float:</span>
+<span class="sd">        The threshold values for each wavelet coefficients</span>
+<span class="sd">        vector.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function to filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    pywt.wavedec: Function that decomposes the signal in wavelet and</span>
+<span class="sd">        scale coefficients</span>
+<span class="sd">    pywt.waverec: Function that recomposes the signal from wavelet and</span>
+<span class="sd">        scale coefficients</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] BAYER, F. M.; KOZAKEVICIUS, A. J. SPC-threshold:  uma proposta de</span>
+<span class="sd">           limiarização para filtragem adaptativa de sinais. Tendências em</span>
+<span class="sd">           Matemática Aplicada e Computacional, v. 11, n. 2, p. 121–132, 2010.</span>
+<span class="sd">           In portuguese.</span>
+
+<span class="sd">    .. [2] KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via</span>
+<span class="sd">           limiarização de coeficientes wavelet. Ciência e Natura, v. 36,</span>
+<span class="sd">           p. 37–51, 2014. In portuguese.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">wavCoeff2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff</span><span class="p">]</span>
+
+    <span class="n">lambdaValues</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff2</span><span class="p">:</span>
+        <span class="n">Sj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                     <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">wavCoeff_i</span> <span class="o">-</span> <span class="n">wavCoeff_i</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="o">*</span><span class="n">Sj</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">wavCoeff_i</span> <span class="o">=</span> <span class="n">wavCoeff_i</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">*</span><span class="n">Sj</span><span class="p">]</span>
+            <span class="n">Sj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">wavCoeff_i</span> <span class="o">-</span> <span class="n">wavCoeff_i</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+
+        <span class="n">lambdaValues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">Sj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lambdaValues</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

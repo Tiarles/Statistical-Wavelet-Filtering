@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="statsWaveletFiltr package" href="statsWaveletFiltr.html" />
+    <link rel="prev" title="Instalation" href="instalation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="instalation.html">Instalation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statsWaveletFiltr.html">statsWaveletFiltr package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/get_started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>First you can import some modules like:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">statsWaveletFiltr.filtration</span> <span class="k">as</span> <span class="nn">fil</span>
+<span class="kn">import</span> <span class="nn">statsWaveletFiltr.signals</span> <span class="k">as</span> <span class="nn">sig</span>
+<span class="kn">import</span> <span class="nn">statsWaveletFiltr.miscellaneous</span> <span class="k">as</span> <span class="nn">misc</span>
+</pre></div>
+</div>
+<p>And follow some steps to make your filtrations:</p>
+<p><strong>First step: Signal modelling</strong></p>
+<p>In many test for filtration and/or estimation of error, showed in articles, are supose an known ideal signal, how show the code above:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">dimension</span> <span class="o">=</span> <span class="mi">1024</span>
+
+<span class="n">t</span><span class="p">,</span> <span class="n">idealSignal</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">dopplerFunction</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">idealSignal</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img1.png"><img alt="img1" src="_images/img1.png" style="width: 375.0px; height: 252.0px;" /></a>
+</div>
+<p>This package also gives a support for anothers three ideal signal: the <strong>heavsine</strong> (<code class="docutils literal notranslate"><span class="pre">sig.heavsineFunction()</span></code>), <strong>bump</strong> (<code class="docutils literal notranslate"><span class="pre">sig.bumpFunction()</span></code>) and <strong>block</strong> (<code class="docutils literal notranslate"><span class="pre">sig.blockFunction()</span></code>).</p>
+<p>And add to this a kind of noise, generally <em>gaussian</em> or, also called, <em>normal</em>.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img2.png"><img alt="img2" src="_images/img2.png" style="width: 383.0px; height: 252.0px;" /></a>
+</div>
+<p><strong>Second step: Wavelet transformation</strong></p>
+<p>Let’s do this using the <code class="docutils literal notranslate"><span class="pre">pywt.wavedec</span></code> function. With this you can 1) make a wavelet transform of your noisy signal, 2) choice wich wavelet function is used (<code class="docutils literal notranslate"><span class="pre">'haar',</span> <span class="pre">'db',</span> <span class="pre">'gaus',</span> <span class="pre">'mexh'</span></code> among others) and 3) choice any levels you want to evaluate the transform.</p>
+<p>The first position <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">noiseCoeff[0]</span></code> has the scale coefficents of the last nível. The consecutive elements `` = noiseCoeff[1:]`` has the wavelet coefficients of the last to the first level of transform.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">misc.showWaveletCoeff</span></code> function you can show all coefficients returned of the transform.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img3.png"><img alt="img3" src="_images/img3.png" style="width: 372.0px; height: 426.0px;" /></a>
+</div>
+<p><strong>Thirth step: Filtration</strong></p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">fil.filtration</span></code> function you can put yours 1) coefficients for filtration, 2) choice the method (<code class="docutils literal notranslate"><span class="pre">'visu',</span> <span class="pre">'sure',</span> <span class="pre">'bayes',</span> <span class="pre">'spc'</span></code>) and, if necessary, 3) set method own parameters (more details in documentation).</p>
+<p>And, again, you can show the wavelet coefficients before and after the filtration, with the limiar used using the <code class="docutils literal notranslate"><span class="pre">misc.showWaveletCoeff</span></code> function.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img4.png"><img alt="img4" src="_images/img4.png" style="width: 372.0px; height: 426.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img5.png"><img alt="img5" src="_images/img5.png" style="width: 372.0px; height: 426.0px;" /></a>
+</div>
+<p><strong>Fourth step: Recovery wavelet transformation</strong>
+Using the <code class="docutils literal notranslate"><span class="pre">pywt.waverec</span></code> function we can revovery the signal.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/img6.png"><img alt="img6" src="_images/img6.png" style="width: 287.25px; height: 189.0px;" /></a>
+</div>
+<p><strong>Fifth step: Figures of merith</strong>
+Using <code class="docutils literal notranslate"><span class="pre">sig.differential_snr_dB</span></code> we can avaliate the filtration using some figures of merith of different forms of evaluate the snr or cnr (see more in Documentation) of the signal.</p>
+<blockquote>
+<div>sig.differential_snr_dB(noisySignal, filtratedSignal, method=’variances’, idealSignal=idealSignal)</div></blockquote>
+<p><strong>Appendix: Miscelaneous</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>The misc.generateData function generate data using the signals showed here with different variances of noise and save in format .npy.</li>
+<li>The misc.normalizeData function normalize a data between a min and max value, this function is used in all signals modeled in sig module.</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="statsWaveletFiltr.html" class="btn btn-neutral float-right" title="statsWaveletFiltr package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="instalation.html" class="btn btn-neutral float-left" title="Instalation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

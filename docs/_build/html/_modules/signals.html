@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>signals &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../statsWaveletFiltr.html">statsWaveletFiltr package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>signals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for signals</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">**Wavelet Based in CUSUM control chart for filtering signals Project (module**</span>
+<span class="sd">``statsWaveletFiltr.signals`` **):** Functions to evaluate the dignal fitering</span>
+<span class="sd">process using the module ``statisticFilter`` or any kind of filtration.</span>
+
+<span class="sd">*Created by Tiarles Guterres, 2018*</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="for_dB_scale"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.for_dB_scale">[docs]</a><span class="k">def</span> <span class="nf">for_dB_scale</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts x to dB scale using 10*log10(x)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    x: int or float</span>
+<span class="sd">        The value for convertion</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        The x value converted in dB scale.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="for_real_scale"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.for_real_scale">[docs]</a><span class="k">def</span> <span class="nf">for_real_scale</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts x to real scale using 10**(x/10)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    x: int or float</span>
+<span class="sd">        The value for convertion</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        The x value converted in eal scale.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">return</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="snr_square_mean_error"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.snr_square_mean_error">[docs]</a><span class="k">def</span> <span class="nf">snr_square_mean_error</span><span class="p">(</span><span class="n">currentSignal</span><span class="p">,</span> <span class="n">idealSignal</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the SNR via the current signal and the ideal using the square</span>
+<span class="sd">    mean error approach.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    currentSignal: 1-D array-like</span>
+<span class="sd">        The signal for compare with ideal.</span>
+<span class="sd">    idealSignal: 1-D array-like</span>
+<span class="sd">        The ideal signal, based in the currentSignal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        Mean of idealSignal by standard deviation of the noise.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="p">(</span><span class="n">currentSignal</span><span class="p">,</span> <span class="n">idealSignal</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">currentSignal</span><span class="p">),</span>
+                                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">currentSignal</span> <span class="o">-</span> <span class="n">idealSignal</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="snr_mean_standardNoise"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.snr_mean_standardNoise">[docs]</a><span class="k">def</span> <span class="nf">snr_mean_standardNoise</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the SNR via ideal signal mean and standard deviation of the</span>
+<span class="sd">    noise.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    idealSignal: 1-D array-like</span>
+<span class="sd">        The ideal signal, based in the currentSignal.</span>
+<span class="sd">    noiseSignal: 1-D array-like</span>
+<span class="sd">        Noise apply to ideal signal, could be a initial or residual noise.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        Mean of idealSignal by standard deviation of the noise.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noiseSignal</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">idealSignal</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">/</span><span class="n">noiseSignal</span><span class="o">.</span><span class="n">std</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="snr_variances"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.snr_variances">[docs]</a><span class="k">def</span> <span class="nf">snr_variances</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the SNR via ratio of variances of ideal signal and noise.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    idealSignal: 1-D array-like</span>
+<span class="sd">        The ideal signal, based in the currentSignal.</span>
+<span class="sd">    noiseSignal: 1-D array-like</span>
+<span class="sd">        Noise apply to ideal signal, could be a initial or residual noise.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        Variance ratio value between the ideal and noise signals.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noiseSignal</span><span class="p">))</span>
+
+    <span class="n">var_ideal</span> <span class="o">=</span> <span class="n">idealSignal</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+    <span class="n">var_noise</span> <span class="o">=</span> <span class="n">noiseSignal</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">var_ideal</span><span class="o">/</span><span class="n">var_noise</span></div>
+
+
+<div class="viewcode-block" id="cnr_amplitude_standardNoise"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.cnr_amplitude_standardNoise">[docs]</a><span class="k">def</span> <span class="nf">cnr_amplitude_standardNoise</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the CNR (contrast-to-noise ratio [1]) via the amplitude</span>
+<span class="sd">    of idealSignal and standard deviation of the noise.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    idealSignal: 1-D array-like</span>
+<span class="sd">        The ideal signal, based in the currentSignal.</span>
+<span class="sd">    noiseSignal: 1-D array-like</span>
+<span class="sd">        Noise apply to ideal signal, could be a initial or residual noise.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        Ratio of maximum distance of zero and standard deviation of the noise.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">idealSignal</span><span class="p">,</span> <span class="n">noiseSignal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noiseSignal</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noiseSignal</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">idealSignal</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">idealSignal</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span><span class="o">/</span><span class="n">noiseSignal</span><span class="o">.</span><span class="n">std</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="differential_snr_dB"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.differential_snr_dB">[docs]</a><span class="k">def</span> <span class="nf">differential_snr_dB</span><span class="p">(</span><span class="n">initialSignal</span><span class="p">,</span> <span class="n">finalSignal</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;square_mean_error&#39;</span><span class="p">,</span>
+                        <span class="n">idealSignal</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the SNR or CNR difference between two signals: after and before</span>
+<span class="sd">    filtering. Ideal signal may be used.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    initialSignal: 1-D array-like</span>
+<span class="sd">        Initial Signal, before the filtering process</span>
+
+<span class="sd">    finalSignal: 1-D array-like</span>
+<span class="sd">        Final Signal, after the filtering process</span>
+
+<span class="sd">    method: string, optional</span>
+<span class="sd">        Is &#39;square_mean_error&#39; by default, other forms of calculate the</span>
+<span class="sd">        SNR differential is &#39;mean_StandardNoise&#39;, &#39;variances&#39; and</span>
+<span class="sd">        &#39;amplitude_standardNoise&#39;.</span>
+
+<span class="sd">    idealSignal: 1-D array-like or 0, optional</span>
+<span class="sd">        Is 0 by default,  is necessary in all methods except in</span>
+<span class="sd">        &#39;square_mean_error&#39; method.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float:</span>
+<span class="sd">        The SNR differential value in dB.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;&lt;class &#39;NoneType&#39;&gt;&quot;</span><span class="p">:</span>
+        <span class="n">insertedIdeal</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">idealSignal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">initialSignal</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">insertedIdeal</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">initialSignal</span><span class="p">,</span> <span class="n">finalSignal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">initialSignal</span><span class="p">),</span>
+                                  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">finalSignal</span><span class="p">))</span>
+    <span class="n">idealSignal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idealSignal</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;square_mean_error&#39;</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">for_dB_scale</span><span class="p">(</span><span class="n">snr_square_mean_error</span><span class="p">(</span><span class="n">initialSignal</span><span class="p">,</span> <span class="n">finalSignal</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mean_StandardNoise&#39;</span> <span class="ow">or</span> \
+            <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;amplitude_standardNoise&#39;</span> <span class="ow">and</span> <span class="n">insertedIdeal</span><span class="p">:</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">initialSignal</span> <span class="o">-</span> <span class="n">idealSignal</span>
+        <span class="n">residuo</span> <span class="o">=</span> <span class="n">finalSignal</span> <span class="o">-</span> <span class="n">idealSignal</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">for_dB_scale</span><span class="p">(</span><span class="n">noise</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">residuo</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;variances&#39;</span> <span class="ow">and</span> <span class="n">insertedIdeal</span><span class="p">:</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">initialSignal</span> <span class="o">-</span> <span class="n">idealSignal</span>
+        <span class="n">residuo</span> <span class="o">=</span> <span class="n">finalSignal</span> <span class="o">-</span> <span class="n">idealSignal</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">for_dB_scale</span><span class="p">(</span><span class="n">noise</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">residuo</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="s1">&#39;Not found method or idealSignal isn</span><span class="se">\&#39;</span><span class="s1">t inserted!&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="heavsineFunction"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.heavsineFunction">[docs]</a><span class="k">def</span> <span class="nf">heavsineFunction</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate the Heavsine function in a range of 0 to 1, with dim points.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dim: int</span>
+<span class="sd">        Dimension of the signal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        [0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,</span>
+<span class="sd">        coordinates in Y axis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">statsWaveletFiltr.miscellaneous</span> <span class="k">as</span> <span class="nn">misc</span>
+
+    <span class="n">linspace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+    <span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">signal</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">-</span> <span class="n">signal</span><span class="p">(</span><span class="mf">0.72</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+ 
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">normalizeData</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_nor</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dopplerFunction"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.dopplerFunction">[docs]</a><span class="k">def</span> <span class="nf">dopplerFunction</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate the Doppler function in a range of 0 to 1, with dim points.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dim: int</span>
+<span class="sd">        Dimension of the signal.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        [0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,</span>
+<span class="sd">        coordinates in Y axis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">statsWaveletFiltr.miscellaneous</span> <span class="k">as</span> <span class="nn">misc</span>
+
+    <span class="n">linspace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">sqrt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="mf">0.05</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">e</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">normalizeData</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_nor</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="blockFunction"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.blockFunction">[docs]</a><span class="k">def</span> <span class="nf">blockFunction</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate the Block function in a range of 0 to 1, with dim points.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dim: int</span>
+<span class="sd">        Dimension of the signal.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        [0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,</span>
+<span class="sd">        coordinates in Y axis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">statsWaveletFiltr.miscellaneous</span> <span class="k">as</span> <span class="nn">misc</span>
+
+    <span class="n">linspace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.44</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.76</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span>
+               <span class="mf">0.81</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">([</span><span class="n">h</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">K</span><span class="p">(</span><span class="n">xi</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="p">))])</span>
+               <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">normalizeData</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_nor</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bumpFunction"><a class="viewcode-back" href="../statsWaveletFiltr.html#signals.bumpFunction">[docs]</a><span class="k">def</span> <span class="nf">bumpFunction</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate the Bump function in a range of 0 to 1, with dim points. Take care</span>
+<span class="sd">    to the representation limits of this function is blows infinity in Y axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    dim: int</span>
+<span class="sd">        Dimension of the signal.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        [0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,</span>
+<span class="sd">        coordinates in Y axis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">statsWaveletFiltr.miscellaneous</span> <span class="k">as</span> <span class="nn">misc</span>
+
+    <span class="n">linspace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="nb">abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">]</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.006</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.008</span><span class="p">,</span>
+         <span class="mf">0.005</span><span class="p">]</span>  <span class="c1"># for Bumps</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.44</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.76</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">,</span>
+               <span class="mf">0.81</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">([</span><span class="n">h</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">K</span><span class="p">((</span><span class="n">xi</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="p">))])</span>
+               <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+    
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">normalizeData</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_nor</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_nor</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

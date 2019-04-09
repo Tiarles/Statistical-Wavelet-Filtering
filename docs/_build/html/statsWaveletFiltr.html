@@ -1,0 +1,1022 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>statsWaveletFiltr package &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting started" href="get_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">statsWaveletFiltr package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-cusum"><code class="docutils literal notranslate"><span class="pre">cusum</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-filtration"><code class="docutils literal notranslate"><span class="pre">filtration</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-miscellaneous"><code class="docutils literal notranslate"><span class="pre">miscellaneous</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-signals"><code class="docutils literal notranslate"><span class="pre">signals</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-threshold"><code class="docutils literal notranslate"><span class="pre">threshold</span></code> module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>statsWaveletFiltr package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/statsWaveletFiltr.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="statswaveletfiltr-package">
+<h1>statsWaveletFiltr package<a class="headerlink" href="#statswaveletfiltr-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cusum">
+<span id="cusum-module"></span><h2><code class="docutils literal notranslate"><span class="pre">cusum</span></code> module<a class="headerlink" href="#module-cusum" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wavelet Based in CUSUM control chart for filtering signals Project (module</strong>
+<code class="docutils literal notranslate"><span class="pre">statsWaveletFiltr.cusum</span></code> <strong>):</strong> Functions to analise data using Control
+Chart CUSUM. In this package the application of this chart is for filtration of
+wavelet coefficients.</p>
+<p><em>Created by Tiarles Guterres, 2018</em></p>
+<dl class="function">
+<dt id="cusum.analysisCusum">
+<code class="descclassname">cusum.</code><code class="descname">analysisCusum</code><span class="sig-paren">(</span><em>data</em>, <em>k=0.5</em>, <em>mean=None</em>, <em>std=None</em>, <em>SjBi_start=0</em>, <em>Sjsi_start=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cusum.html#analysisCusum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cusum.analysisCusum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Control Limits of CUSUM like in [1]. This is a Control Chart
+defined in [2] and this type of tool serves to make a control of data who
+is  called in statistic “process”.</p>
+<p>For more details about the parameters see [1] Chapter 9: Cumulative Sum and
+Exponentially Weighted Moving Average Control Charts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>list</em><em> or </em><em>array-like</em>) – This is the data of “process” who CUSUM has to analize</li>
+<li><strong>k</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, 1/2 (or .5) by default. It’s a parameter of the CUSUM
+algorithm. Helps to the Control Chart acummulate the Control Limits of
+each element of data.</li>
+<li><strong>mean</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is None by default, but turns the mean of data. Also an
+intern parameter of the algorithm for help to acumulate the control
+limits.</li>
+<li><strong>std</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is None by default, but turns the standard deviation of data.
+The same function of mean in relation of control limits.</li>
+<li><strong>SjBi_start</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is 0 by default. Is the start value for acumulation of
+superior control limit.</li>
+<li><strong>Sjsi_start</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is 0 by default. Is the start value for acumulation of
+inferior control limit.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple of control limits. In [0] the superior limits and in [2] the
+inferior limits.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#cusum.thresholdCusum" title="cusum.thresholdCusum"><code class="xref py py-func docutils literal notranslate"><span class="pre">thresholdCusum()</span></code></a></dt>
+<dd>Function used to truncation of data using the control limits obtained in this function and a decision interval, called “H”.</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth
+edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>PAGE, E. S. Continous Inspection Schemes. Biometrika, v. 41,
+p. 100-115, 1954</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cusum.thresholdCusum">
+<code class="descclassname">cusum.</code><code class="descname">thresholdCusum</code><span class="sig-paren">(</span><em>data</em>, <em>SjB</em>, <em>Sjs</em>, <em>std=None</em>, <em>h=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cusum.html#thresholdCusum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cusum.thresholdCusum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the truncation of data accordyling with control limits SjB and Sjs
+and the interval of decision [H = h * data.std()]. The threshold method
+it’s showed in [1], more about cusum it’s showed in [2], Chapter 9.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The size of <strong>data</strong> must be <strong>equal</strong> to size of <strong>SjB</strong> and <strong>Sjs</strong>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After the test (via <strong>pytest</strong>) the fuction was changed for better
+performance.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>list</em><em> or </em><em>array-like</em>) – The data who corresponding to control limits.</li>
+<li><strong>SjB</strong> (<em>list</em><em> or </em><em>array-like</em>) – The control superior limits who corresponding to data .</li>
+<li><strong>Sjs</strong> (<em>list</em><em> or </em><em>array-like</em>) – The control inferior limits who corresponding to data .</li>
+<li><strong>std</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is None by default, but turns the standard deviation of data.
+It’s an intern parameter of the algorithm for help to acumulate the
+control limits.</li>
+<li><strong>h</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, 5 by default. This variable multiply with standard deviation
+of data to obtain the interval of decision (H).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An array with elements of data truncated or not, depending of the
+control limits and the interval of decision.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#cusum.analysisCusum" title="cusum.analysisCusum"><code class="xref py py-func docutils literal notranslate"><span class="pre">analysisCusum()</span></code></a></dt>
+<dd>Make the cusum analysis inthe data, return the control limits corresponding to data input.</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>GUTERRES, T. D. R. M.; BAYER, F. M; KOZAKEVICIUS, A. D. J. (2018)
+Análise do gráfico de controle CUSUM para filtragem de coeficientes
+wavelet, Undergraduation Thesis, Universidade Federal de Santa
+Maria. In portuguese.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth
+edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-filtration">
+<span id="filtration-module"></span><h2><code class="docutils literal notranslate"><span class="pre">filtration</span></code> module<a class="headerlink" href="#module-filtration" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wavelet Based in CUSUM control chart for filtering signals Project (module</strong>
+<code class="docutils literal notranslate"><span class="pre">statsWaveletFiltr.statisticFilter</span></code> <strong>):</strong> Top level functions to filter
+wavelet coefficients using consagrated methods (<code class="docutils literal notranslate"><span class="pre">threshold</span></code>) and using
+Control Chart CUSUM (<code class="docutils literal notranslate"><span class="pre">cusum</span></code>) proposed in my Undergraduate Thesis, together
+with prof. Dr. Fábio Mariano Bayer and prof. Dr. Alice de Jesus Kozakevicius
+called <em>Análise do gráfico de controle CUSUM para a filtragem de coeficientes
+wavelet</em>, in portuguese for the Universidade Federal de Santa Maria (2°/2018).</p>
+<p><em>Created by Tiarles Guterres, 2018</em></p>
+<dl class="function">
+<dt id="filtration.filtration">
+<code class="descclassname">filtration.</code><code class="descname">filtration</code><span class="sig-paren">(</span><em>coefficients</em>, <em>method='visu'</em>, <em>p=3</em>, <em>mode='hard'</em>, <em>dim_t=1024</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/filtration.html#filtration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#filtration.filtration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the wavelet coefficients returned by the pywt.wavedec function.
+All methods are implemented and showed in [1].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coefficients</strong> (<em>list of 1-D array-like</em>) – The wavelet coefficients and the scale coefficients of the last
+level. The scale coefficients isn’t modify by the filtration.</li>
+<li><strong>method</strong> (<em>string</em>) – Optional, is ‘visu’ by default.</li>
+<li><strong>p</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is 3 by default.</li>
+<li><strong>mode</strong> (<em>string</em>) – Optional, is ‘hard’ by default.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple with [0] A list if numpy.array. The wavelet coefficients
+truncated by the choiced method, with scale coefficients. Ready for
+pywt.waverec function. (a little ‘tip’) and [1] a list of float. The
+lambda value used for each wavelet coefficient level.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#filtration.cusumFiltration" title="filtration.cusumFiltration"><code class="xref py py-func docutils literal notranslate"><span class="pre">cusumFiltration()</span></code></a></dt>
+<dd>Function that use Cumulative Sum Control Chart and some variation for filter wavelet coefficients.</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via
+limiarização de coeficientes wavelet. Ciência e Natura, v. 36,
+p. 37–51, 2014. In portuguese.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="filtration.cusumFiltration">
+<code class="descclassname">filtration.</code><code class="descname">cusumFiltration</code><span class="sig-paren">(</span><em>coefficients</em>, <em>h=5</em>, <em>k=0.5</em>, <em>method='cusumTrad'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/filtration.html#cusumFiltration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#filtration.cusumFiltration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the wavelet coefficients returned by the pywt.wavedec function
+using the Cumulative Sum Control Chart (CUSUM) [1].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wavCoeff</strong> (<em>list of array-like.</em>) – Wavelet coefficients</li>
+<li><strong>h</strong> (<em>int</em><em>, </em><em>float</em><em> or </em><em>array-like</em>) – Optional, 5 by default [1]. See “method” parameter.</li>
+<li><strong>k</strong> (<em>int</em><em>, </em><em>float</em><em> or </em><em>array-like</em>) – Optional, 1/2 (or .5) by default [1]. See “method” parameter.</li>
+<li><strong>method</strong> (<em>string</em>) – <p>Optional, “cusumTrad” by default.</p>
+<p>If “method” is “cusumTrad” the Control Chart considered to filter the
+wavalet coefficients is the same considered in [1]. If the control
+limit (called <strong>SjB</strong> and <strong>Sjs</strong> here) is bigger than threshold limit
+the wavelet coefficient corresponded will be zero. In this “method” “k”
+and “h” will be constant and equals for all wavelet coefficients in all
+levels, the [1] recomend h = 5 and k = 1/2, but you can change or just
+not alterate.</p>
+<p>But if “method” is “cusumDecay” occurs the same in “cusumTrad” relative
+to truncation form but the “k” and “h” will be like is described in
+[2].</p>
+<p>Or if “method” is “cusumAdap” will be the same of the “cusumDecay”
+but the user can be choice who values of “h” and “k” will be for each
+wavelet level.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple with [0] A list if numpy.array. The wavelet coefficients
+truncated by the choiced method, with scale coefficients. Ready for
+pywt.waverec function. (a little ‘tip’), [1] a list of float. The “k”
+values used for each wavelet coefficient level and [2] a list of float.
+The “h” values used for each wavelet coefficient level.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#module-filtration" title="filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration()</span></code></a></dt>
+<dd>Function that use this function to filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth
+edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>GUTERRES, T. D. R. M.; BAYER, F. M; KOZAKEVICIUS, A. D. J. (2018)
+Análise do gráfico de controle CUSUM para filtragem de coeficientes
+wavelet, Undergraduation Thesis, Universidade Federal de Santa
+Maria. In portuguese.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-miscellaneous">
+<span id="miscellaneous-module"></span><h2><code class="docutils literal notranslate"><span class="pre">miscellaneous</span></code> module<a class="headerlink" href="#module-miscellaneous" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wavelet Based in CUSUM control chart for filtering signals Project (module</strong>
+<code class="docutils literal notranslate"><span class="pre">statsWaveletFiltr.miscellaneous</span></code> <strong>):</strong> A Miscellaneous of functions for
+work with data and show wavelet coefficients</p>
+<p><em>Created by Tiarles Guterres, 2018</em></p>
+<dl class="function">
+<dt id="miscellaneous.showWaveletCoeff">
+<code class="descclassname">miscellaneous.</code><code class="descname">showWaveletCoeff</code><span class="sig-paren">(</span><em>coefficients</em>, <em>filename='tmp'</em>, <em>format='pdf'</em>, <em>threshold_value=0</em>, <em>color='black'</em>, <em>color_threshold='black'</em>, <em>figsize=(7</em>, <em>8)</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/miscellaneous.html#showWaveletCoeff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#miscellaneous.showWaveletCoeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show and save the wavelet and scale coefficients in a plot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coeff</strong> (<em>list of numpy.array's</em>) – With in ‘0’ position the scale coefficients. Equal to the
+<code class="docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code> return.</li>
+<li><strong>filename</strong> (<em>string</em>) – Optional, is ‘tmp’ by default. This is the first part of the
+name of the figure.</li>
+<li><strong>format</strong> (<em>string</em>) – Optional, is ‘pdf’ by default. This is the last part of the name of the
+figure. Can be ‘png’, ‘ps’, ‘eps’ and ‘svg’ too.</li>
+<li><strong>threshold_value</strong> (<em>int</em><em>, </em><em>float</em><em> or </em><em>list.</em>) – Optional, is 0 by default, this means that bothing new happens.
+Otherwise, a line in threshold value will be plotted in all wavelet
+coefficients plots. This value can be a list too, but they was to be
+the same size of wavelet coefficients (without the scale coefficient).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nothing is returned, the plots is show and save.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+<dt><a class="reference internal" href="#filtration.filtration" title="filtration.filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration.filtration()</span></code></a></dt>
+<dd>Function that use this function to filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration.filtrationCusum()</span></code></dt>
+<dd>Function that use Cumulative Sum Control Chart and some variation for filter wavelet coefficients.</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="miscellaneous.normalizeData">
+<code class="descclassname">miscellaneous.</code><code class="descname">normalizeData</code><span class="sig-paren">(</span><em>data</em>, <em>min=0</em>, <em>max=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/miscellaneous.html#normalizeData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#miscellaneous.normalizeData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Its almost a map function. This function normalize the data between a
+min and max values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>list</em><em> or </em><em>array-like</em>) – The values that desire normalize.</li>
+<li><strong>min</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is -1 by default. The min value correspond, in the end,
+of the min value of data.</li>
+<li><strong>max</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, is 1 by default. The max value correspond, in the end,
+of the max value of data.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The data normalized between min and max values.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="miscellaneous.generateData">
+<code class="descclassname">miscellaneous.</code><code class="descname">generateData</code><span class="sig-paren">(</span><em>functions=['doppler', 'block', 'bump', 'heavsine'], varNoises=[0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01], dim_signals=1024, n_samples_per_sig_per_noise=10000, folder='tmp'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/miscellaneous.html#generateData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#miscellaneous.generateData" title="Permalink to this definition">¶</a></dt>
+<dd><p>If you like to generate your dataset before run your test you can use
+this function to generate the data. With the 1) type of signal and
+2) quantity of noise (in variance). Saves in <code class="docutils literal notranslate"><span class="pre">.npy</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-signals">
+<span id="signals-module"></span><h2><code class="docutils literal notranslate"><span class="pre">signals</span></code> module<a class="headerlink" href="#module-signals" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wavelet Based in CUSUM control chart for filtering signals Project (module</strong>
+<code class="docutils literal notranslate"><span class="pre">statsWaveletFiltr.signals</span></code> <strong>):</strong> Functions to evaluate the dignal fitering
+process using the module <code class="docutils literal notranslate"><span class="pre">statisticFilter</span></code> or any kind of filtration.</p>
+<p><em>Created by Tiarles Guterres, 2018</em></p>
+<dl class="function">
+<dt id="signals.for_dB_scale">
+<code class="descclassname">signals.</code><code class="descname">for_dB_scale</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#for_dB_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.for_dB_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts x to dB scale using 10*log10(x)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>int</em><em> or </em><em>float</em>) – The value for convertion</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The x value converted in dB scale.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.for_real_scale">
+<code class="descclassname">signals.</code><code class="descname">for_real_scale</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#for_real_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.for_real_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts x to real scale using 10**(x/10)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>int</em><em> or </em><em>float</em>) – The value for convertion</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The x value converted in eal scale.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.snr_square_mean_error">
+<code class="descclassname">signals.</code><code class="descname">snr_square_mean_error</code><span class="sig-paren">(</span><em>currentSignal</em>, <em>idealSignal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#snr_square_mean_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.snr_square_mean_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the SNR via the current signal and the ideal using the square
+mean error approach.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>currentSignal</strong> (<em>1-D array-like</em>) – The signal for compare with ideal.</li>
+<li><strong>idealSignal</strong> (<em>1-D array-like</em>) – The ideal signal, based in the currentSignal.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Mean of idealSignal by standard deviation of the noise.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.snr_mean_standardNoise">
+<code class="descclassname">signals.</code><code class="descname">snr_mean_standardNoise</code><span class="sig-paren">(</span><em>idealSignal</em>, <em>noiseSignal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#snr_mean_standardNoise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.snr_mean_standardNoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the SNR via ideal signal mean and standard deviation of the
+noise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>idealSignal</strong> (<em>1-D array-like</em>) – The ideal signal, based in the currentSignal.</li>
+<li><strong>noiseSignal</strong> (<em>1-D array-like</em>) – Noise apply to ideal signal, could be a initial or residual noise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Mean of idealSignal by standard deviation of the noise.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.snr_variances">
+<code class="descclassname">signals.</code><code class="descname">snr_variances</code><span class="sig-paren">(</span><em>idealSignal</em>, <em>noiseSignal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#snr_variances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.snr_variances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the SNR via ratio of variances of ideal signal and noise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>idealSignal</strong> (<em>1-D array-like</em>) – The ideal signal, based in the currentSignal.</li>
+<li><strong>noiseSignal</strong> (<em>1-D array-like</em>) – Noise apply to ideal signal, could be a initial or residual noise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Variance ratio value between the ideal and noise signals.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.cnr_amplitude_standardNoise">
+<code class="descclassname">signals.</code><code class="descname">cnr_amplitude_standardNoise</code><span class="sig-paren">(</span><em>idealSignal</em>, <em>noiseSignal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#cnr_amplitude_standardNoise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.cnr_amplitude_standardNoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the CNR (contrast-to-noise ratio [1]) via the amplitude
+of idealSignal and standard deviation of the noise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>idealSignal</strong> (<em>1-D array-like</em>) – The ideal signal, based in the currentSignal.</li>
+<li><strong>noiseSignal</strong> (<em>1-D array-like</em>) – Noise apply to ideal signal, could be a initial or residual noise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Ratio of maximum distance of zero and standard deviation of the noise.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.differential_snr_dB">
+<code class="descclassname">signals.</code><code class="descname">differential_snr_dB</code><span class="sig-paren">(</span><em>initialSignal</em>, <em>finalSignal</em>, <em>method='square_mean_error'</em>, <em>idealSignal=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#differential_snr_dB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.differential_snr_dB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the SNR or CNR difference between two signals: after and before
+filtering. Ideal signal may be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>initialSignal</strong> (<em>1-D array-like</em>) – Initial Signal, before the filtering process</li>
+<li><strong>finalSignal</strong> (<em>1-D array-like</em>) – Final Signal, after the filtering process</li>
+<li><strong>method</strong> (<em>string</em><em>, </em><em>optional</em>) – Is ‘square_mean_error’ by default, other forms of calculate the
+SNR differential is ‘mean_StandardNoise’, ‘variances’ and
+‘amplitude_standardNoise’.</li>
+<li><strong>idealSignal</strong> (<em>1-D array-like</em><em> or </em><em>0</em><em>, </em><em>optional</em>) – Is 0 by default,  is necessary in all methods except in
+‘square_mean_error’ method.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The SNR differential value in dB.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.heavsineFunction">
+<code class="descclassname">signals.</code><code class="descname">heavsineFunction</code><span class="sig-paren">(</span><em>dim=1024</em>, <em>normalize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#heavsineFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.heavsineFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Heavsine function in a range of 0 to 1, with dim points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dim</strong> (<em>int</em>) – Dimension of the signal.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,
+coordinates in Y axis</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.dopplerFunction">
+<code class="descclassname">signals.</code><code class="descname">dopplerFunction</code><span class="sig-paren">(</span><em>dim=1024</em>, <em>normalize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#dopplerFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.dopplerFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Doppler function in a range of 0 to 1, with dim points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dim</strong> (<em>int</em>) – Dimension of the signal.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,
+coordinates in Y axis</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.blockFunction">
+<code class="descclassname">signals.</code><code class="descname">blockFunction</code><span class="sig-paren">(</span><em>dim=1024</em>, <em>normalize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#blockFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.blockFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Block function in a range of 0 to 1, with dim points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dim</strong> (<em>int</em>) – Dimension of the signal.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,
+coordinates in Y axis</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="signals.bumpFunction">
+<code class="descclassname">signals.</code><code class="descname">bumpFunction</code><span class="sig-paren">(</span><em>dim=1024</em>, <em>normalize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signals.html#bumpFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#signals.bumpFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Bump function in a range of 0 to 1, with dim points. Take care
+to the representation limits of this function is blows infinity in Y axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dim</strong> (<em>int</em>) – Dimension of the signal.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[0] 1-D array-like, coordinates in X axis and [1] 1-D array-like,
+coordinates in Y axis</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-threshold">
+<span id="threshold-module"></span><h2><code class="docutils literal notranslate"><span class="pre">threshold</span></code> module<a class="headerlink" href="#module-threshold" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wavelet Based in CUSUM control chart for filtering signals Project (module</strong>
+<code class="docutils literal notranslate"><span class="pre">statsWaveletFiltr.threshold</span></code> <strong>):</strong> Statistic functions for obtain threshold
+values for wavelet coefficients based in some referenced works.</p>
+<p><em>Created by Tiarles Guterres, 2018</em></p>
+<dl class="function">
+<dt id="threshold.lambdasVisuShrink">
+<code class="descclassname">threshold.</code><code class="descname">lambdasVisuShrink</code><span class="sig-paren">(</span><em>wavCoeff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threshold.html#lambdasVisuShrink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threshold.lambdasVisuShrink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the threshold value (lambda) by VisuShrink [1] method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavCoeff</strong> (<em>list of lists</em><em> or </em><em>array-like</em>) – Wavelet coefficients</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The threshold values for each wavelet coefficients
+vector.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of float</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#module-filtration" title="filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration()</span></code></a></dt>
+<dd>Function that use this function for filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>DONOHO, D. L.; JOHNSTONE, I. M. Ideal spatial adaptation via
+wavelet shrinkage. Biometrika, v. 81, p. 425–455, 1994.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="threshold.lambdasSureShrink">
+<code class="descclassname">threshold.</code><code class="descname">lambdasSureShrink</code><span class="sig-paren">(</span><em>wavCoeff</em>, <em>dim_t=1024</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threshold.html#lambdasSureShrink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threshold.lambdasSureShrink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the threshold value (lambda) by SureShrink [1] method. It’s showed
+also in [2].</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After the test (via <strong>pytest</strong>) the fuction was changed for better
+performance.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wavCoeff</strong> (<em>list of lists</em><em> or </em><em>array-like</em>) – Wavelet coefficients</li>
+<li><strong>dim_t</strong> (<em>optional</em><em>, </em><em>1024 by default. t-dimension. Input vector from</em>) – internal function _sure(vector, dim_t).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The threshold values for each wavelet coefficients vector.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of float</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#module-filtration" title="filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration()</span></code></a></dt>
+<dd>Function that use this function to filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>DONOHO, D. L.; JOHNSTONE, I. M. Ideal spatial adaptation via
+wavelet shrinkage. Biometrika, v. 81, p. 425–455, 1994.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via
+limiarização de coeficientes wavelet. Ciência e Natura, v. 36,
+p. 37–51, 2014. In portuguese.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="threshold.lambdasBayesShrink">
+<code class="descclassname">threshold.</code><code class="descname">lambdasBayesShrink</code><span class="sig-paren">(</span><em>wavCoeff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threshold.html#lambdasBayesShrink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threshold.lambdasBayesShrink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the threshold value (lambda) by BayesShrink [1] method. It’s
+showed also in [2].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavCoeff</strong> (<em>list of lists</em><em> or </em><em>array-like</em>) – Wavelet coefficients</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The threshold values for each wavelet coefficients vector.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of float</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#module-filtration" title="filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration()</span></code></a></dt>
+<dd>Function that use this function to filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>CHANG, S. G.; YU, B.; VETTERLI, M. Adaptive wavelet thresholding
+for image denoising and compression. IEEE Transactions on Image
+Processing, v. 9, p. 1532–1546, 2000.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via
+limiarização de coeficientes wavelet. Ciência e Natura, v. 36,
+p. 37–51, 2014. In portuguese.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="threshold.lambdasSPC_Threshold">
+<code class="descclassname">threshold.</code><code class="descname">lambdasSPC_Threshold</code><span class="sig-paren">(</span><em>wavCoeff</em>, <em>p=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threshold.html#lambdasSPC_Threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threshold.lambdasSPC_Threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the threshold value (lambda) by SPC-Threshold [1], [2] method</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After the test (via <strong>pytest</strong>) the fuction was changed for better
+performance.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wavCoeff</strong> (<em>list of lists</em><em> or </em><em>array-like</em>) – Wavelet coefficients</li>
+<li><strong>p</strong> (<em>int</em><em> or </em><em>float</em>) – Optional, 3 by default. Parameter for the algorithm [1],
+generally is used 2 or 3.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The threshold values for each wavelet coefficients
+vector.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of float</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#module-filtration" title="filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">filtration()</span></code></a></dt>
+<dd>Function that use this function to filter via wavelet coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.wavedec()</span></code></dt>
+<dd>Function that decomposes the signal in wavelet and scale coefficients</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">pywt.waverec()</span></code></dt>
+<dd>Function that recomposes the signal from wavelet and scale coefficients</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>BAYER, F. M.; KOZAKEVICIUS, A. J. SPC-threshold:  uma proposta de
+limiarização para filtragem adaptativa de sinais. Tendências em
+Matemática Aplicada e Computacional, v. 11, n. 2, p. 121–132, 2010.
+In portuguese.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via
+limiarização de coeficientes wavelet. Ciência e Natura, v. 36,
+p. 37–51, 2014. In portuguese.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="get_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

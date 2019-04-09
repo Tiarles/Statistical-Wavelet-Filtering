@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>filtration &mdash; Statistical Wavelet Filtering 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Statistical Wavelet Filtering
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../statsWaveletFiltr.html">statsWaveletFiltr package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Statistical Wavelet Filtering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>filtration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for filtration</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">**Wavelet Based in CUSUM control chart for filtering signals Project (module**</span>
+<span class="sd">``statsWaveletFiltr.statisticFilter`` **):** Top level functions to filter</span>
+<span class="sd">wavelet coefficients using consagrated methods (``threshold``) and using</span>
+<span class="sd">Control Chart CUSUM (``cusum``) proposed in my Undergraduate Thesis, together</span>
+<span class="sd">with prof. Dr. Fábio Mariano Bayer and prof. Dr. Alice de Jesus Kozakevicius</span>
+<span class="sd">called *Análise do gráfico de controle CUSUM para a filtragem de coeficientes</span>
+<span class="sd">wavelet*, in portuguese for the Universidade Federal de Santa Maria (2°/2018).</span>
+
+<span class="sd">*Created by Tiarles Guterres, 2018*</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="filtration"><a class="viewcode-back" href="../statsWaveletFiltr.html#filtration.filtration">[docs]</a><span class="k">def</span> <span class="nf">filtration</span><span class="p">(</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;visu&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;hard&#39;</span><span class="p">,</span> <span class="n">dim_t</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Filters the wavelet coefficients returned by the pywt.wavedec function.</span>
+<span class="sd">    All methods are implemented and showed in [1].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    coefficients: list of 1-D array-like</span>
+<span class="sd">        The wavelet coefficients and the scale coefficients of the last</span>
+<span class="sd">        level. The scale coefficients isn&#39;t modify by the filtration.</span>
+
+<span class="sd">    method: string</span>
+<span class="sd">        Optional, is &#39;visu&#39; by default.</span>
+
+<span class="sd">    p: int or float</span>
+<span class="sd">        Optional, is 3 by default.</span>
+
+<span class="sd">    mode: string</span>
+<span class="sd">        Optional, is &#39;hard&#39; by default.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        A tuple with [0] A list if numpy.array. The wavelet coefficients</span>
+<span class="sd">        truncated by the choiced method, with scale coefficients. Ready for</span>
+<span class="sd">        pywt.waverec function. (a little &#39;tip&#39;) and [1] a list of float. The</span>
+<span class="sd">        lambda value used for each wavelet coefficient level.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    cusumFiltration: Function that use Cumulative Sum Control Chart and</span>
+<span class="sd">        some variation for filter wavelet coefficients.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] KOZAKEVICIUS, A. D. J.; BAYER, F. M. Filtragem de sinais via</span>
+<span class="sd">           limiarização de coeficientes wavelet. Ciência e Natura, v. 36,</span>
+<span class="sd">           p. 37–51, 2014. In portuguese.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">from</span> <span class="nn">statsWaveletFiltr.threshold</span> <span class="k">import</span> <span class="n">lambdasVisuShrink</span><span class="p">,</span> \
+        <span class="n">lambdasSureShrink</span><span class="p">,</span> <span class="n">lambdasBayesShrink</span><span class="p">,</span> <span class="n">lambdasSPC_Threshold</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">pywt</span>
+
+    <span class="n">scaleCoeff</span> <span class="o">=</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">wavCoeff</span> <span class="o">=</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;spc&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;ADVICE: The p value for spc method used is &#39;</span> <span class="o">+</span>
+               <span class="s1">&#39;equal to default, 3!&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">dim_t</span> <span class="o">==</span> <span class="mi">1024</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sure&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;ADVICE: The t-dimension value for sure method used is equal &#39;</span> <span class="o">+</span>
+               <span class="s1">&#39;to default, 1024!&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;visu&#39;</span><span class="p">:</span>
+        <span class="n">lambdaValues</span> <span class="o">=</span> <span class="n">lambdasVisuShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sure&#39;</span><span class="p">:</span>
+        <span class="n">lambdaValues</span> <span class="o">=</span> <span class="n">lambdasSureShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">,</span> <span class="n">dim_t</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;bayes&#39;</span><span class="p">:</span>
+        <span class="n">lambdaValues</span> <span class="o">=</span> <span class="n">lambdasBayesShrink</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;spc&#39;</span><span class="p">:</span>
+        <span class="n">lambdaValues</span> <span class="o">=</span> <span class="n">lambdasSPC_Threshold</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="n">wavCoeff2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)):</span>
+        <span class="n">wavCoeff2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lambdaValues</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">mode</span><span class="p">)</span>
+
+    <span class="n">coefficients2</span> <span class="o">=</span> <span class="p">[</span><span class="n">scaleCoeff</span><span class="p">]</span>
+    <span class="n">coefficients2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">coefficients2</span><span class="p">,</span> <span class="n">lambdaValues</span></div>
+
+
+<div class="viewcode-block" id="cusumFiltration"><a class="viewcode-back" href="../statsWaveletFiltr.html#filtration.cusumFiltration">[docs]</a><span class="k">def</span> <span class="nf">cusumFiltration</span><span class="p">(</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cusumTrad&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Filters the wavelet coefficients returned by the pywt.wavedec function</span>
+<span class="sd">    using the Cumulative Sum Control Chart (CUSUM) [1].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    wavCoeff: list of array-like.</span>
+<span class="sd">        Wavelet coefficients</span>
+<span class="sd">    h: int, float or array-like</span>
+<span class="sd">        Optional, 5 by default [1]. See &quot;method&quot; parameter.</span>
+
+<span class="sd">    k: int, float or array-like</span>
+<span class="sd">        Optional, 1/2 (or .5) by default [1]. See &quot;method&quot; parameter.</span>
+
+<span class="sd">    method: string</span>
+<span class="sd">        Optional, &quot;cusumTrad&quot; by default.</span>
+
+<span class="sd">        If &quot;method&quot; is &quot;cusumTrad&quot; the Control Chart considered to filter the</span>
+<span class="sd">        wavalet coefficients is the same considered in [1]. If the control</span>
+<span class="sd">        limit (called **SjB** and **Sjs** here) is bigger than threshold limit</span>
+<span class="sd">        the wavelet coefficient corresponded will be zero. In this &quot;method&quot; &quot;k&quot;</span>
+<span class="sd">        and &quot;h&quot; will be constant and equals for all wavelet coefficients in all</span>
+<span class="sd">        levels, the [1] recomend h = 5 and k = 1/2, but you can change or just</span>
+<span class="sd">        not alterate.</span>
+
+<span class="sd">        But if &quot;method&quot; is &quot;cusumDecay&quot; occurs the same in &quot;cusumTrad&quot; relative</span>
+<span class="sd">        to truncation form but the &quot;k&quot; and &quot;h&quot; will be like is described in</span>
+<span class="sd">        [2].</span>
+
+<span class="sd">        Or if &quot;method&quot; is &quot;cusumAdap&quot; will be the same of the &quot;cusumDecay&quot;</span>
+<span class="sd">        but the user can be choice who values of &quot;h&quot; and &quot;k&quot; will be for each</span>
+<span class="sd">        wavelet level.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple:</span>
+<span class="sd">        A tuple with [0] A list if numpy.array. The wavelet coefficients</span>
+<span class="sd">        truncated by the choiced method, with scale coefficients. Ready for</span>
+<span class="sd">        pywt.waverec function. (a little &#39;tip&#39;), [1] a list of float. The &quot;k&quot;</span>
+<span class="sd">        values used for each wavelet coefficient level and [2] a list of float.</span>
+<span class="sd">        The &quot;h&quot; values used for each wavelet coefficient level.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filtration: Function that use this function to filter via wavelet</span>
+<span class="sd">        coefficients</span>
+<span class="sd">    pywt.wavedec: Function that decomposes the signal in wavelet and</span>
+<span class="sd">        scale coefficients</span>
+<span class="sd">    pywt.waverec: Function that recomposes the signal from wavelet and</span>
+<span class="sd">        scale coefficients</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] MONTGOMERY, D. C. Introduction to Statistical Quality Control. Sixth</span>
+<span class="sd">           edition. United States: John Wiley &amp; Sons, Inc., 2009. 733 p.</span>
+
+<span class="sd">    .. [2] GUTERRES, T. D. R. M.; BAYER, F. M; KOZAKEVICIUS, A. D. J. (2018)</span>
+<span class="sd">           Análise do gráfico de controle CUSUM para filtragem de coeficientes</span>
+<span class="sd">           wavelet, Undergraduation Thesis, Universidade Federal de Santa</span>
+<span class="sd">           Maria. In portuguese.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">from</span> <span class="nn">statsWaveletFiltr.cusum</span> <span class="k">import</span> <span class="n">analysisCusum</span><span class="p">,</span> <span class="n">thresholdCusum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">scaleCoeff</span> <span class="o">=</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">wavCoeff</span> <span class="o">=</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">wavCoeff2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">wavCoeff_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">wavCoeff_i</span> <span class="ow">in</span> <span class="n">wavCoeff</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cusumTrad&#39;</span><span class="p">:</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)</span>
+        <span class="n">k2</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cusumDecay&#39;</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;ADVICE: This method was addaptated to 5 levels of wavelet &#39;</span> <span class="o">+</span>
+               <span class="s1">&#39;coefficients [2]! For more levels the method will be &#39;</span> <span class="o">+</span>
+               <span class="s1">&#39;readapted, no garanties of performance&#39;</span><span class="p">))</span>
+
+        <span class="n">k2</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)</span>
+
+        <span class="n">j_lvl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">7</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="o">.</span><span class="mi">201</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff</span><span class="p">)</span> <span class="o">-</span> <span class="n">j_lvl</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cusumAdap&#39;</span><span class="p">:</span>
+
+        <span class="c1"># A serie of raises!</span>
+        <span class="c1"># 1) Check the &#39;k&#39; and &#39;h&#39; parameter types</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;k&#39; isn&#39;t a list or numpy.array&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;h&#39; isn&#39;t a list or numpy.array&quot;</span><span class="p">)</span>
+
+        <span class="c1"># 2) Check if the size the array-like parameters is the same to the</span>
+        <span class="c1">#    wavelet coefficients</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">((</span><span class="s2">&quot;Size of &#39;k&#39; doesn&#39;t match with the size of &quot;</span> <span class="o">+</span>
+                             <span class="s2">&quot;wavelet coefficients&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">((</span><span class="s2">&quot;Size of &#39;k&#39; doesn&#39;t match with the size of &quot;</span> <span class="o">+</span>
+                             <span class="s2">&quot;wavelet coefficients&quot;</span><span class="p">))</span>
+        <span class="n">k2</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="n">h</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">Dj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">):</span>
+        <span class="n">SjB</span><span class="p">,</span> <span class="n">Sjs</span> <span class="o">=</span> <span class="n">analysisCusum</span><span class="p">(</span><span class="n">Dj</span><span class="p">,</span> <span class="n">k2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+        <span class="n">wavCoeff2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">thresholdCusum</span><span class="p">(</span><span class="n">Dj</span><span class="p">,</span> <span class="n">SjB</span><span class="p">,</span> <span class="n">Sjs</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">coefficients2</span> <span class="o">=</span> <span class="p">[</span><span class="n">scaleCoeff</span><span class="p">]</span>
+    <span class="n">coefficients2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wavCoeff2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">coefficients2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">h2</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tiarles Guterres; Fábio M Bayer; Alice J Kozakevicius
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
