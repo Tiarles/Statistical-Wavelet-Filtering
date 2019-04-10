@@ -92,8 +92,8 @@ Using ``sig.differential_snr_dB`` we can avaliate the filtration using some figu
 ```
 ### Appendix: Miscelaneous
 
-    * The misc.generateData function generate data using the signals showed here with different variances of noise and save in format .npy.
-    * The misc.normalizeData function normalize a data between a min and max value, this function is used in all signals modeled in sig module.
+* The ``misc.generateData`` function generate data using the signals showed here with different variances of noise and save in format ``.npy``.
+* The ``misc.normalizeData`` function normalize a data between a min and max value, this function is used in all signals modeled in sig module.
 
 ### References
 
