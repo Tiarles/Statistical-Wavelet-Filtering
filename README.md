@@ -5,8 +5,8 @@ With this package you can test some classic algorithms for statistical processin
 
 See some articles:
 
-* [DONOHO, JOHNSTONE (1992), Ideal Spatial Adaptation by Wavelet Shrinkage](statweb.stanford.edu/~imj/WEBLIST/1994/isaws.pdf)
-* [DONOHO, JOHNSTONE (1994), Adapting to Unknown Smoothness via Wavelet Shrinkage](statweb.stanford.edu/~imj/WEBLIST/1995/ausws.pdf)
+* [DONOHO, JOHNSTONE (1992), Ideal Spatial Adaptation by Wavelet Shrinkage](http://statweb.stanford.edu/~imj/WEBLIST/1994/isaws.pdf)
+* [DONOHO, JOHNSTONE (1994), Adapting to Unknown Smoothness via Wavelet Shrinkage](http://statweb.stanford.edu/~imj/WEBLIST/1995/ausws.pdf)
 * [CHANG, YU, VETTERLI (2000),Adaptive Wavelet Thresholding for Image Denoisingand Compression](https://core.ac.uk/download/pdf/147900624.pdf)
 * [BAYER, KOZAKEVICIUS (2010), SPC-Threshold: Uma Proposta de Limiarização para Filtragem Adaptativa de Sinais](https://tema.sbmac.org.br/tema/article/download/96/43)
 * [KOZAKEVICIUS, BAYER (2014), Filtragem de sinais via limiarização de coeficientes wavelet](http://oaji.net/articles/2017/1602-1487163088.pdf)
@@ -14,8 +14,6 @@ See some articles:
 ### Getting started
 
 First you can import some modules like:
-
-.. code:: python
 
     import pywt
     import numpy as np
@@ -26,11 +24,9 @@ First you can import some modules like:
 
 And follow some steps to make your filtrations:
 
-**First step: Signal modelling**
+##### First step: Signal modelling
 
 In many test for filtration and/or estimation of error, showed in articles, are supose an known ideal signal, how show the code above:
-
-.. code:: python
 
     import matplotlib.pyplot as plt
 
@@ -40,9 +36,8 @@ In many test for filtration and/or estimation of error, showed in articles, are 
     plt.plot(t, idealSignal, 'k-')
     plt.show()
 
-.. figure:: _images/img1.png
-    :scale: 100%
-    :alt: img1
+
+![](docs/_images/img1.png)
 
 This package also gives a support for anothers three ideal signal: the **heavsine** (``sig.heavsineFunction()``), **bump** (``sig.bumpFunction()``) and **block** (``sig.blockFunction()``).
 
@@ -55,11 +50,9 @@ And add to this a kind of noise, generally *gaussian* or, also called, *normal*.
     plt.plot(t, noisySignal, 'k-')
     plt.show()
 
-.. figure:: _images/img2.png
-    :scale: 100%
-    :alt: img2
+![](docs/_images/img2.png)
 
-**Second step: Wavelet transformation**
+#### Second step: Wavelet transformation
 
 Let's do this using the ``pywt.wavedec`` function. With this you can 1) make a wavelet transform of your noisy signal, 2) choice wich wavelet function is used (``'haar', 'db', 'gaus', 'mexh'`` among others) and 3) choice any levels you want to evaluate the transform.
 
