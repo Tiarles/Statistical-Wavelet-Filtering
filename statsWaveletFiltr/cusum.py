@@ -65,7 +65,29 @@ def analysisCusum(data, k=1/2, mean=None, std=None, SjBi_start=0,
 
     '''
 
-    return
+    import numpy as np
+
+    if std is None:
+        std = data.std()
+    if mean is None:
+        mean = data.mean()
+
+    K = k * std
+
+    SjB, Sjs = [SjBi_start], [Sjsi_start]
+
+    for i, xi in enumerate(data):
+
+        SjBi_temp = np.maximum(0, xi - (mean + K) + SjB[i])
+        Sjsi_temp = np.maximum(0, (mean - K) - xi + Sjs[i])
+
+        SjB.append(SjBi_temp)
+        Sjs.append(Sjsi_temp)
+
+    SjB = np.array(SjB[1:])
+    Sjs = np.array(Sjs[1:])
+
+    return SjB, Sjs
 
 
 def thresholdCusum(data, SjB, Sjs, std=None, h=5):
@@ -119,4 +141,18 @@ def thresholdCusum(data, SjB, Sjs, std=None, h=5):
            edition. United States: John Wiley & Sons, Inc., 2009. 733 p.
     '''
 
-    return
+    import numpy as np
+
+    if std is None:
+        std = data.std()
+
+    data2 = []
+
+    H = h * std
+
+    for i, Dji in enumerate(data):
+        if (SjB[i] > H) or (Sjs[i] > H):
+            data2.append(Dji)
+        else:  # (SjBi =< H) and (Sjsi =< H)
+            data2.append(0)
+    return np.array(data2)

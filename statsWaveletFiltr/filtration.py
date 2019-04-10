@@ -52,8 +52,41 @@ def filtration(coefficients, method='visu', p=3, mode='hard', dim_t=1024):
            limiarização de coeficientes wavelet. Ciência e Natura, v. 36,
            p. 37–51, 2014. In portuguese.
     '''
-    
-    return
+
+    from statsWaveletFiltr.threshold import lambdasVisuShrink, \
+        lambdasSureShrink, lambdasBayesShrink, lambdasSPC_Threshold
+    import numpy as np
+    import pywt
+
+    scaleCoeff = coefficients[0]
+    wavCoeff = coefficients[1:]
+
+    if p == 3 and method == 'spc':
+        print(('ADVICE: The p value for spc method used is ' +
+               'equal to default, 3!'))
+
+    if dim_t == 1024 and method == 'sure':
+        print(('ADVICE: The t-dimension value for sure method used is equal ' +
+               'to default, 1024!'))
+
+    if method == 'visu':
+        lambdaValues = lambdasVisuShrink(wavCoeff)
+    elif method == 'sure':
+        lambdaValues = lambdasSureShrink(wavCoeff, dim_t)
+    elif method == 'bayes':
+        lambdaValues = lambdasBayesShrink(wavCoeff)
+    elif method == 'spc':
+        lambdaValues = lambdasSPC_Threshold(wavCoeff, p=p)
+
+    wavCoeff2 = [np.array(list(wavCoeff_i)) for wavCoeff_i in wavCoeff]
+
+    for j in range(len(wavCoeff2)):
+        wavCoeff2[j] = pywt.threshold(wavCoeff2[j], lambdaValues[j], mode)
+
+    coefficients2 = [scaleCoeff]
+    coefficients2.extend(wavCoeff2)
+
+    return coefficients2, lambdaValues
 
 
 def cusumFiltration(coefficients, h=5, k=1/2, method='cusumTrad'):
@@ -119,4 +152,57 @@ def cusumFiltration(coefficients, h=5, k=1/2, method='cusumTrad'):
            Maria. In portuguese.
     '''
 
-    return
+    from statsWaveletFiltr.cusum import analysisCusum, thresholdCusum
+    import numpy as np
+
+    scaleCoeff = coefficients[0]
+    wavCoeff = coefficients[1:]
+
+    wavCoeff2 = [np.array(list(wavCoeff_i)) for wavCoeff_i in wavCoeff]
+
+    if method == 'cusumTrad':
+        h2 = [h] * len(wavCoeff2)
+        k2 = [k] * len(wavCoeff2)
+
+    elif method == 'cusumDecay':
+
+        print(('ADVICE: This method was addaptated to 5 levels of wavelet ' +
+               'coefficients [2]! For more levels the method will be ' +
+               'readapted, no garanties of performance'))
+
+        k2 = [k] * len(wavCoeff2)
+
+        j_lvl = np.arange(0, len(wavCoeff), 1)
+        h2 = -7*np.log10(.201 * (len(wavCoeff) - j_lvl))
+
+    elif method == 'cusumAdap':
+
+        # A serie of raises!
+        # 1) Check the 'k' and 'h' parameter types
+        if not isinstance(k, (list, np.ndarray)):
+            raise Exception("Parameter 'k' isn't a list or numpy.array")
+
+        if not isinstance(h, (list, np.ndarray)):
+            raise Exception("Parameter 'h' isn't a list or numpy.array")
+
+        # 2) Check if the size the array-like parameters is the same to the
+        #    wavelet coefficients
+        if len(k) != len(wavCoeff2):
+            raise Exception(("Size of 'k' doesn't match with the size of " +
+                             "wavelet coefficients"))
+
+        if len(h) != len(wavCoeff2):
+            raise Exception(("Size of 'k' doesn't match with the size of " +
+                             "wavelet coefficients"))
+        k2 = k
+        h2 = h
+
+    for j, Dj in enumerate(wavCoeff2):
+        SjB, Sjs = analysisCusum(Dj, k2[j])
+
+        wavCoeff2[j] = thresholdCusum(Dj, SjB, Sjs, h=h2[j])
+
+    coefficients2 = [scaleCoeff]
+    coefficients2.extend(wavCoeff2)
+
+    return coefficients2, k2, h2

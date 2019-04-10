@@ -39,7 +39,18 @@ def lambdasVisuShrink(wavCoeff):
            wavelet shrinkage. Biometrika, v. 81, p. 425–455, 1994.
     '''
 
-    return
+    import numpy as np
+
+    # Coefficients Vector from the bigger resolution
+    d_m1 = list(wavCoeff[-1])  # Make a copy
+    d_m1 = np.array(d_m1)       # Turns a numpy.array
+
+    estDeviation = np.median(np.abs(d_m1))/.6745
+
+    lambdaValues = [estDeviation * np.sqrt(2*np.log10(d_m1.size))] * \
+        len(wavCoeff)
+
+    return lambdaValues
 
 
 def _sure(vector, ti):
@@ -77,7 +88,17 @@ def _sure(vector, ti):
            distribution. Annals of Statistics, v. 9, p. 1135–1151, 1981.
     '''
 
-    return
+    import numpy as np
+
+    vector2 = np.array(list(vector))
+
+    soma1 = np.sum(vector2 <= ti)
+
+    ti_list = [[ti]]*vector2.size
+
+    soma2 = np.sum(np.power(np.minimum(vector2, np.concatenate(ti_list)), 2))
+
+    return vector2.size - 2 * soma1 + soma2
 
 
 def lambdasSureShrink(wavCoeff, dim_t=1024):
@@ -120,7 +141,24 @@ def lambdasSureShrink(wavCoeff, dim_t=1024):
            p. 37–51, 2014. In portuguese.
     '''
 
-    return
+    import numpy as np
+
+    wavCoeff2 = [np.array(list(wavCoeff_i)) for wavCoeff_i in wavCoeff]
+
+    lambdaValues = []
+
+    for coeff in wavCoeff2:
+
+        estDeviation = np.median(np.abs(coeff))/.6745
+
+        tmax = estDeviation*np.sqrt(2*np.log10(coeff.size))
+
+        t = np.linspace(0, tmax, dim_t)
+
+        res_sure = [_sure(coeff, ti) for ti in t]
+
+        lambdaValues.append(t[np.argmin(res_sure)])
+    return lambdaValues
 
 
 def lambdasBayesShrink(wavCoeff):
@@ -158,7 +196,24 @@ def lambdasBayesShrink(wavCoeff):
            p. 37–51, 2014. In portuguese.
     '''
 
-    return
+    import numpy as np
+
+    wavCoeff2 = [np.array(list(wavCoeff_i)) for wavCoeff_i in wavCoeff]
+
+    d_m1 = wavCoeff2[-1]
+    deviation_square = np.power(np.median(np.abs(d_m1))/0.6745, 2)
+
+    lambdaValues = []
+
+    for wavCoeff_i in wavCoeff2:
+        deviation2_wavCoeff_i = np.sum(np.power(wavCoeff_i, 2))/wavCoeff_i.size
+
+        deviation_Xj = np.sqrt(
+            np.maximum(deviation2_wavCoeff_i - deviation_square, 0))
+
+        lambdaValues.append(deviation_square/deviation_Xj)
+
+    return lambdaValues
 
 
 def lambdasSPC_Threshold(wavCoeff, p=3):
@@ -204,4 +259,20 @@ def lambdasSPC_Threshold(wavCoeff, p=3):
            p. 37–51, 2014. In portuguese.
     '''
 
-    return
+    import numpy as np
+
+    wavCoeff2 = [np.array(list(wavCoeff_i)) for wavCoeff_i in wavCoeff]
+
+    lambdaValues = []
+
+    for wavCoeff_i in wavCoeff2:
+        Sj = np.sqrt(1./(wavCoeff_i.size - 1) *
+                     np.sum(np.power(wavCoeff_i - wavCoeff_i.mean(), 2)))
+
+        while (np.abs(wavCoeff_i) >= p*Sj).any():
+            wavCoeff_i = wavCoeff_i[np.abs(wavCoeff_i) < p*Sj]
+            Sj = np.sqrt(1./(wavCoeff_i.size - 1) *
+                         np.sum(np.power(wavCoeff_i - wavCoeff_i.mean(), 2)))
+
+        lambdaValues.append(p*Sj)
+    return lambdaValues

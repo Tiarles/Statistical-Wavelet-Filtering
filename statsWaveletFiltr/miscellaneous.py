@@ -51,6 +51,46 @@ def showWaveletCoeff(coefficients, filename='tmp', format='pdf',
         and some variation for filter wavelet coefficients.
     '''
 
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    if isinstance(threshold_value, (int, float, np.float64, np.int32,
+                                    np.int64)):
+        threshold_list = [threshold_value]*len(coefficients)
+    else:
+        threshold_list = [0] + list(threshold_value)
+
+    N = len(coefficients) - 1
+
+    fig, ax = plt.subplots(len(coefficients), 1, figsize=figsize)
+
+    ax[0].set_title(title)
+
+    # Scale Coefficients
+    ax[0].plot(coefficients[0], color=color, label='$c_0$ ($c_%d$)' % N)
+    ax[0].legend(loc=1)
+    ax[0].grid()
+
+    # Wavelet Coefficients
+
+    for i in range(1, len(coefficients)):
+        ax[i].plot(coefficients[i], color=color,
+                   label='$d_%d$ ($d_%d$)' % (i - 1, N - i + 1))
+        if threshold_list[i] != 0:
+            x_min, x_max = ax[i].get_xlim()
+            ax[i].hlines(threshold_list[i], x_min, x_max,
+                         colors=color_threshold, linestyles='dashed')
+
+            ax[i].hlines(-threshold_list[i], x_min, x_max,
+                         colors=color_threshold, linestyles='dashed',
+                         label='$\\lambda$')
+        ax[i].legend(loc=1)
+        ax[i].grid()
+
+    plt.tight_layout()
+    plt.savefig('%s' % filename+'.'+format)
+    plt.show()
+
     return
 
 
@@ -78,7 +118,24 @@ def normalizeData(data, min=0, max=1):
 
     '''
 
-    return
+    import numpy as np
+
+    data = np.array(data)
+
+    new_data = data.copy()
+    max_value = data.max()
+    min_value = data.min()
+
+    diff_pp = max_value - min_value
+    diff_new_pp = max - min
+
+    new_data = new_data - min_value
+    new_data = new_data / diff_pp
+
+    new_data = new_data * diff_new_pp
+    new_data = new_data + min
+
+    return new_data
 
 
 def generateData(functions=['doppler', 'block', 'bump', 'heavsine'],
@@ -92,4 +149,47 @@ def generateData(functions=['doppler', 'block', 'bump', 'heavsine'],
     2) quantity of noise (in variance). Saves in ``.npy``
     '''
 
-    return
+    from statsWaveletFiltr.signals import bumpFunction, blockFunction
+    from statsWaveletFiltr.signals import dopplerFunction, heavsineFunction
+    import numpy as np
+    import os
+
+    try:
+        os.mkdir(folder)
+        print('try: ', folder)
+    except FileExistsError:
+        pass
+
+    n_it = n_samples_per_sig_per_noise
+
+    functions_dic = {'doppler': dopplerFunction,
+                     'block': blockFunction,
+                     'bump': bumpFunction,
+                     'heavsine': heavsineFunction}
+
+    functions_dic_used = {function: functions_dic[function]
+                          for function in functions}
+
+    for name, function in functions_dic_used.items():
+        x, y = function(dim_signals)
+        print('|----', name)
+        
+        try:
+            os.mkdir(folder+'/'+name)
+        except FileExistsError:
+            pass
+        
+        for varNoise in varNoises:
+            counter = 0
+            print('|----|----', varNoise)
+            while counter < n_it:
+                np.random.seed(counter)
+                noise = np.random.normal(0, np.sqrt(varNoise), dim_signals)
+
+                sinalNoisy = y + noise
+
+                filename = './%s/%s/%f_%d.npy' % (folder, name, varNoise,
+                                                                counter)
+                
+                np.save(filename, sinalNoisy)
+                counter += 1
