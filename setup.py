@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="statsWaveletFilt",
-    version="0.0.3",
+    version="0.0.4",
     author="Tiarles Guterres",
     author_email="tiarlesmoralles@hotmail.com",
     description="A statistical signal processing package",
@@ -105,7 +105,7 @@ Using ``sig.differential_snr_dB`` we can avaliate the filtration using some figu
     long_description_content_type='text/markdown',
     url="https://github.com/Tiarles/Statistical-Wavelet-Filtering",
     project_urls = {
-        'Documentation': 'https://statistical-wavelet-filtering.readthedocs.io/en/latest/',
+        'Documentation': 'https://statistical-wavelet-filtering.readthedocs.io/en/master/',
         'Source': 'https://github.com/Tiarles/Statistical-Wavelet-Filtering'
 
     },
