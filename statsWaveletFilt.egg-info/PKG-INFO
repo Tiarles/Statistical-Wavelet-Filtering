@@ -1,11 +1,13 @@
 Metadata-Version: 2.1
 Name: statsWaveletFilt
-Version: 0.0.2
+Version: 0.0.3
 Summary: A statistical signal processing package
 Home-page: https://github.com/Tiarles/Statistical-Wavelet-Filtering
 Author: Tiarles Guterres
 Author-email: tiarlesmoralles@hotmail.com
 License: UNKNOWN
+Project-URL: Documentation, https://statistical-wavelet-filtering.readthedocs.io/en/latest/
+Project-URL: Source, https://github.com/Tiarles/Statistical-Wavelet-Filtering
 Description: # Statistical Processing: A Python Statistical Signal Processing Package
         
         A package that construct an interface for filtering wavelet coefficients (using PyWavelets) with statistical methods

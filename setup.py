@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="statsWaveletFilt",
-    version="0.0.2",
+    version="0.0.3",
     author="Tiarles Guterres",
     author_email="tiarlesmoralles@hotmail.com",
     description="A statistical signal processing package",
@@ -104,6 +104,11 @@ Using ``sig.differential_snr_dB`` we can avaliate the filtration using some figu
 * [KOZAKEVICIUS, BAYER (2014), Filtragem de sinais via limiarização de coeficientes wavelet](http://oaji.net/articles/2017/1602-1487163088.pdf)""",
     long_description_content_type='text/markdown',
     url="https://github.com/Tiarles/Statistical-Wavelet-Filtering",
+    project_urls = {
+        'Documentation': 'https://statistical-wavelet-filtering.readthedocs.io/en/latest/',
+        'Source': 'https://github.com/Tiarles/Statistical-Wavelet-Filtering'
+
+    },
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
