@@ -8,9 +8,9 @@ First you can import some modules like:
     import pywt
     import numpy as np
 
-    import statsWaveletFiltr.filtration as fil
-    import statsWaveletFiltr.signals as sig
-    import statsWaveletFiltr.miscellaneous as misc
+    import statsWaveletFilt.filtration as fil
+    import statsWaveletFilt.signals as sig
+    import statsWaveletFilt.miscellaneous as misc
 ```
 And follow some steps to make your filtrations:
 

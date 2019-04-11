@@ -10,6 +10,3 @@ documentation
    threshold
    miscellaneous
 
-
-.. statsWaveletFiltr
-

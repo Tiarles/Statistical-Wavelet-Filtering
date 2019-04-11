@@ -12,7 +12,7 @@ Welcome to Statistical Wavelet Filtering's documentation!
 
    instalation.rst
    get_started.rst
-   statsWaveletFiltr.rst
+   statsWaveletFilt.rst
 ..
       get_started_2.rst
    

@@ -1,4 +1,4 @@
-statsWaveletFiltr package
+statsWaveletFilt package
 =========================
 
 ``cusum`` module
@@ -40,12 +40,3 @@ statsWaveletFiltr package
     :members:
     :undoc-members:
     :show-inheritance:
-
-..
-    Module contents
-    ---------------
-
-    .. automodule:: statsWaveletFiltr
-        :members:
-        :undoc-members:
-        :show-inheritance:
