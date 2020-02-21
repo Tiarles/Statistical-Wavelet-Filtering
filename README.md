@@ -78,7 +78,7 @@ And, again, you can show the wavelet coefficients before and after the filtratio
 Using the ``pywt.waverec`` function we can revovery the signal.
 
 ``` python
-    filtrateSignal = pywt.waverec(filtrateCoeff, 'db8')
+    filtratedSignal = pywt.waverec(filtrateCoeff, 'db8')
 
     plt.plot(t, filtrateSignal, 'k-')
     plt.show()
