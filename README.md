@@ -80,7 +80,7 @@ Using the ``pywt.waverec`` function we can revovery the signal.
 ``` python
     filtratedSignal = pywt.waverec(filtrateCoeff, 'db8')
 
-    plt.plot(t, filtrateSignal, 'k-')
+    plt.plot(t, filtratedSignal, 'k-')
     plt.show()
 ```
 ![](docs/_images/img6.png)
